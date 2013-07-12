@@ -569,7 +569,6 @@ function lunch()
 
     local product=$(echo -n $selection | sed -e "s/-.*$//")
     check_product $product
-    if [ $? -ne 0 ]
 #   then
 #       # if we can't find a product, try to grab it off the CM github
 #        T=$(gettop)
@@ -580,7 +579,7 @@ function lunch()
 #    else
 #        build/tools/roomservice.py $product true
 #    fi
-#   if [ $? -ne 0 ]
+    if [ $? -ne 0 ]
     then
         echo
         echo "** Don't have a product spec for: '$product'"
