@@ -70,8 +70,8 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^cm_") ; then
-       CM_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
+    if (echo -n $1 | grep -q -e "^poly_") ; then
+       CM_BUILD=$(echo -n $1 | sed -e 's/^poly_//g')
     else
        CM_BUILD=
     fi
@@ -457,11 +457,6 @@ function add_lunch_combo()
 }
 
 # add the default one here
-add_lunch_combo full-eng
-add_lunch_combo full_x86-eng
-add_lunch_combo vbox_x86-eng
-add_lunch_combo full_mips-eng
-
 function print_lunch_menu()
 {
     local uname=$(uname)
@@ -527,7 +522,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the CM model name
-            lunch cm_$target-userdebug
+            lunch poly_$target-userdebug
         fi
     fi
     return $?
@@ -575,17 +570,17 @@ function lunch()
     local product=$(echo -n $selection | sed -e "s/-.*$//")
     check_product $product
     if [ $? -ne 0 ]
-    then
-        # if we can't find a product, try to grab it off the CM github
-        T=$(gettop)
-        pushd $T > /dev/null
-        build/tools/roomservice.py $product
-        popd > /dev/null
-        check_product $product
-    else
-        build/tools/roomservice.py $product true
-    fi
-    if [ $? -ne 0 ]
+#   then
+#       # if we can't find a product, try to grab it off the CM github
+#        T=$(gettop)
+#        pushd $T > /dev/null
+#        build/tools/roomservice.py $product
+#        popd > /dev/null
+#        check_product $product
+#    else
+#        build/tools/roomservice.py $product true
+#    fi
+#   if [ $? -ne 0 ]
     then
         echo
         echo "** Don't have a product spec for: '$product'"
@@ -674,7 +669,7 @@ function eat()
 {
     if [ "$OUT" ] ; then
         MODVERSION=$(get_build_var CM_VERSION)
-        ZIPFILE=cm-$MODVERSION.zip
+        ZIPFILE=$MODVERSION.zip
         ZIPPATH=$OUT/$ZIPFILE
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"

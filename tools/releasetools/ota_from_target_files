@@ -415,13 +415,36 @@ def WriteFullOTAPackage(input_zip, output_zip):
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
+  script.Print(".$$$$$$$\...$$$$$$\..$$\...$$\.....$$\.");
+  script.Print(".$$..__$$\.$$..__$$\.$$.|..\$$\...$$..|");
+  script.Print(".$$.|..$$.|$$./..$$.|$$.|...\$$\.$$../.");
+  script.Print(".$$$$$$$..|$$.|..$$.|$$.|....\$$$$../..");
+  script.Print(".$$..____/.$$.|..$$.|$$.|.....\$$../...");
+  script.Print(".$$.|......$$.|..$$.|$$.|......$$.|....");
+  script.Print(".$$.|.......$$$$$$..|$$$$$$$$\.$$.|....");
+  script.Print(".\__|.......\______/.\________|\__|....");
+  script.Print(".......................................");
+  script.Print(".$$$$$$\..$$\...$$\.$$\.......$$$$$$$\.");
+  script.Print("$$..__$$\.$$.|..$$.|$$.|......$$..____|");
+  script.Print("$$./..\__|$$.|..$$.|$$.|......$$.|.....");
+  script.Print("$$.|......$$.|..$$.|$$.|......$$$$$\...");
+  script.Print("$$.|......$$.|..$$.|$$.|......$$..__|..");
+  script.Print("$$.|..$$\.$$.|..$$.|$$.|......$$.|.....");
+  script.Print("\$$$$$$..|\$$$$$$..|$$$$$$$$\.$$$$$$$\.");
+  script.Print(".\______/..\______/.\________|\_______|");
+  script.Print(" ")
+  script.Print("Formatting System...")
   if "selinux_fc" in OPTIONS.info_dict:
     WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
 
   script.FormatPartition("/system")
+  script.Print("Mounting System...")
   script.Mount("/system")
   #script.UnpackPackageDir("recovery", "/system")
+  script.ShowProgress(0.5, 40)
+  script.Print("Installing System...")
   script.UnpackPackageDir("system", "/system")
+  script.Print("Creating Symlinks...") 
 
   symlinks = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
@@ -447,6 +470,28 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.1, 0)
+  script.Print("...$$$$$$$$$$$$$$$$$$:.....$$$....$=...");
+  script.Print("...$$$$$$$$$$$$$$$$$$$,..........$$=...");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$,.......:$$$=...");
+  script.Print("...$$$$$$$$$$$$$$$.........~~$$$$$$=...");
+  script.Print("...$$$$$$$$$$$$~...........$$$$$$$$=...");
+  script.Print("...$$$$$$$$$$$......,,,.....$$$$$$$=...");
+  script.Print("........$$$$$....-$$$$$-,....$$$$$$=...");
+  script.Print(".........:$$:...=$$$$$$$$,....$$$$$=...");
+  script.Print("...,,,....~,....$$$$$$$$$$....$$$$$=...");
+  script.Print("...$$$,.........$$$$$$$$$=....$$$$$=...");
+  script.Print("...$$$~..........$$$$$$$$....$$$$$$=...");
+  script.Print("....:.....$$$,......$$=.....$$$$$$$=...");
+  script.Print(".........$$$$$,,...........$$$$$$$$=...");
+  script.Print("......,$$$$$$$$=,,..........$,~~$$$=...");
+  script.Print("...$$$$$$$$$$$$$$$$==$$$,..........=...");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$$$..............");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$$,...=$$$,......");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$$,...$$$$=......");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$$,....$$$:......");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$$:,.............");
+  script.Print("...$$$$$$$$$$$$$$$$$$$$$$:,.......~=...");
+  script.Print("Installation Completed!")
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
